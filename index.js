@@ -69,3 +69,35 @@
   };
 
 }
+
+{
+  /**
+   * 43. Multiply Strings
+   * @param {string} num1
+   * @param {string} num2
+   * @return {string}
+   */
+  var multiply = function(num1, num2) {
+    var len1 = num1.length;
+    var len2 = num2.length;
+
+    var result = new Array(len1 + len2);
+    for (var a = 0, len = len1 + len2; a < len; a++) result[a] = 0;
+
+    for (var i = len1 - 1; i >= 0; i--) {
+      for (var j = len2 - 1; j >= 0; j--) {
+        var multiUnit = num1[i] * num2[j];
+
+        var p1 = i + j, p2 = p1 + 1;
+        var sum = result[p2] + multiUnit;
+
+        result[p1] += parseInt(sum / 10);
+        result[p2] = sum % 10;
+      }
+    }
+
+    while (result[0] === 0 && result.length > 1) result.shift();
+
+    return result.join('');
+  };
+}
