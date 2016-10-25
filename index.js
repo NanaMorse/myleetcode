@@ -101,3 +101,78 @@
     return result.join('');
   };
 }
+
+{
+  /**
+   * Definition for singly-linked list.
+   * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+   */
+  /**
+   * 2. Add Two Numbers
+   * @param {ListNode} l1
+   * @param {ListNode} l2
+   * @return {ListNode}
+   */
+  var addTwoNumbers = function(l1, l2) {
+    var resultHead = new ListNode(0);
+    var node = resultHead;
+
+    var carry = 0;
+
+    while (l1 || l2) {
+      var val1 = l1 ? l1.val : 0;
+      var val2 = l2 ? l2.val : 0;
+
+      var sum = val1 + val2 + carry;
+      node.next = new ListNode(sum % 10);
+      node = node.next;
+
+      carry = parseInt(sum / 10);
+
+      l1 = l1 && l1.next;
+      l2 = l2 && l2.next;
+    }
+
+    if (carry) {
+      node.next = new ListNode(carry);
+    }
+
+    return resultHead.next;
+  };
+
+  function ListNode(val) {
+    this.val = val;
+    this.next = null;
+  }
+
+  var node1_1 = new ListNode(1);
+
+  var node2_1 = new ListNode(9);
+  node2_1.next = new ListNode(9);
+
+  // addTwoNumbers(node1_1, node2_1);
+}
+
+{
+  /**
+   * 347. Top K Frequent Elements
+   * @param {number[]} nums
+   * @param {number} k
+   * @return {number[]}
+   */
+  var topKFrequent = function(nums, k) {
+    var map = {};
+    for (var i = 0, len = nums.length; i < len; i++) {
+      var cNum = nums[i];
+      if (!map[cNum])  map[cNum] = 0;
+      map[cNum] ++;
+    }
+
+    return Object.keys(map)
+      .sort((a, b) => map[b] - map[a])
+      .slice(0, k).map(item => parseInt(item));
+  };
+}
