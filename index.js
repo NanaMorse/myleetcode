@@ -176,3 +176,74 @@
       .slice(0, k).map(item => parseInt(item));
   };
 }
+
+{
+  /**
+   * 73. Set Matrix Zeroes
+   * @param {number[][]} matrix
+   * @return {void} Do not return anything, modify matrix in-place instead.
+   */
+  var setZeroes = function(matrix) {
+    const zeroRow = [];
+    const zeroCol = [];
+    matrix.forEach((row, m) => {
+      row.forEach((col, n) => {
+        if (col === 0) {
+          zeroRow.push(m);
+          zeroCol.push(n)
+        }
+      })
+    });
+
+    zeroRow.forEach((rowNum) => {
+      matrix[rowNum].forEach((t, i) => matrix[rowNum][i] = 0);
+    });
+
+    zeroCol.forEach((colNum) => {
+      matrix.forEach((row) => row[colNum] = 0);
+    });
+
+  };
+
+  // setZeroes([[2,1,0], [1,0,1], [2,1,1]]);
+}
+
+{
+  /**
+   * 34. Search for a Range
+   * @param {number[]} nums
+   * @param {number} target
+   * @return {number[]}
+   */
+  var searchRange = function(nums, target) {
+
+    let loPos = -1, hiPos = -1;
+
+    searchPos(0, nums.length - 1);
+
+    function searchPos(lo, hi) {
+      if (lo > hi) return;
+
+      const mid = parseInt((lo + hi) / 2);
+
+      if (nums[mid] === target) {
+        if (loPos === -1 || loPos > mid) loPos = mid;
+        if (hiPos === -1 || hiPos < mid) hiPos = mid;
+        searchPos(lo, mid - 1);
+        searchPos(mid + 1, hi);
+      }
+
+      if (nums[mid] > target) {
+        searchPos(lo, mid - 1);
+      }
+
+      if (nums[mid] < target) {
+        searchPos(mid + 1, hi);
+      }
+    }
+
+    return [loPos, hiPos];
+  };
+
+  // searchRange([5, 7, 7, 8, 8, 10], 8)
+}
