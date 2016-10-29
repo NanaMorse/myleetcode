@@ -10,8 +10,9 @@
    * @param {number} G
    * @param {number} H
    * @return {number}
+   * 78.26%
    */
-  var computeArea = function(A, B, C, D, E, F, G, H) {
+  const computeArea = function(A, B, C, D, E, F, G, H) {
     var areaA = (C - A) * (D - B);
     var areaB = (G - E) * (H - F);
 
@@ -31,8 +32,9 @@
    * 343. Integer Break
    * @param {number} n
    * @return {number}
+   * 93.75%
    */
-  var integerBreak = function(n) {
+  const integerBreak = function(n) {
     if (n === 2) return 1;
     if (n === 3) return 2;
     if (n === 4) return 4;
@@ -51,8 +53,9 @@
    * 70. Climbing Stairs
    * @param {number} n
    * @return {number}
+   * 72.65%
    */
-  var climbStairs = function(n) {
+  const climbStairs = function(n) {
     const resultMap = {
       '0': 0,
       '1': 1,
@@ -76,8 +79,9 @@
    * @param {string} num1
    * @param {string} num2
    * @return {string}
+   * todo 37.50%
    */
-  var multiply = function(num1, num2) {
+  const multiply = function(num1, num2) {
     var len1 = num1.length;
     var len2 = num2.length;
 
@@ -115,8 +119,9 @@
    * @param {ListNode} l1
    * @param {ListNode} l2
    * @return {ListNode}
+   * 82.16%
    */
-  var addTwoNumbers = function(l1, l2) {
+  const addTwoNumbers = function(l1, l2) {
     var resultHead = new ListNode(0);
     var node = resultHead;
 
@@ -162,8 +167,9 @@
    * @param {number[]} nums
    * @param {number} k
    * @return {number[]}
+   * 97.50%
    */
-  var topKFrequent = function(nums, k) {
+  const topKFrequent = function(nums, k) {
     var map = {};
     for (var i = 0, len = nums.length; i < len; i++) {
       var cNum = nums[i];
@@ -182,8 +188,9 @@
    * 73. Set Matrix Zeroes
    * @param {number[][]} matrix
    * @return {void} Do not return anything, modify matrix in-place instead.
+   * 83.87%
    */
-  var setZeroes = function(matrix) {
+  const setZeroes = function(matrix) {
     const zeroRow = [];
     const zeroCol = [];
     matrix.forEach((row, m) => {
@@ -214,8 +221,9 @@
    * @param {number[]} nums
    * @param {number} target
    * @return {number[]}
+   * 67.96%
    */
-  var searchRange = function(nums, target) {
+  const searchRange = function(nums, target) {
 
     let loPos = -1, hiPos = -1;
 
@@ -247,3 +255,84 @@
 
   // searchRange([5, 7, 7, 8, 8, 10], 8)
 }
+
+
+{
+  /**
+   * 227. Basic Calculator II
+   * @param {string} s
+   * @return {number}
+   * todo 37.6%
+   */
+  const calculate = function(s) {
+    const sArray = s.split('');
+
+    const valueStack = [];
+    const operatorStack = ['+'];
+
+    for (let i = 0, len = sArray.length; i < len; i++) {
+
+      // get next operator or value
+      let subs = sArray[i];
+      let isSubsNumber;
+      if (isNumberString(subs)) {
+        while (isNumberString(sArray[i + 1])) {
+          subs += sArray[i + 1];
+          i++;
+        }
+        isSubsNumber = true;
+      }
+
+      if (subs === ' ') continue;
+
+      if (isSubsNumber) {
+        let subValue = parseInt(subs);
+        const leftOperator = operatorStack.pop();
+        if (leftOperator === '-') subValue = - subValue;
+        valueStack.push(subValue);
+      }
+
+      else if (isHighPriorityOperator(subs)) {
+        let leftValue = valueStack.pop();
+
+        let rightValue = '';
+        do {
+          i++;
+          rightValue += sArray[i];
+        } while (isNumberString(sArray[i + 1]));
+        rightValue = parseInt(rightValue);
+
+        if (subs === '*') valueStack.push(leftValue * rightValue);
+        else if (subs === '/') valueStack.push(parseInt(leftValue / rightValue));
+      }
+
+      else {
+        operatorStack.push(subs);
+      }
+    }
+
+    return valueStack.reduce((a, b) => a + b);
+
+    function isNumberString(s) {
+      return !isNaN(parseInt(s));
+    }
+
+    function isHighPriorityOperator(opStr) {
+      return opStr === '*' || opStr === '/';
+    }
+  };
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
