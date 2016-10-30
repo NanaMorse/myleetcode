@@ -321,11 +321,45 @@
       return opStr === '*' || opStr === '/';
     }
   };
-
 }
 
+{
+  /**
+   * 9. Palindrome Number
+   * @param {number} x
+   * @return {boolean}
+   * 77.83%
+   */
+  const isPalindrome = function(x) {
+    if (x < 0) return false;
+    if (x < 10) return true;
 
+    let d = 0;
+    let temp = x;
+    while (temp >= 1) {
+      temp = temp / 10;
+      d++;
+    }
 
+    let hi = Math.pow(10, d - 1);
+    let lo = 1;
+
+    while (hi > lo) {
+      const left = parseInt(x / hi) % 10;
+      const right = parseInt(x / lo) % 10;
+
+      if (left !== right) return false;
+
+      hi = hi / 10;
+      lo = lo * 10;
+    }
+
+    return true;
+  };
+
+  isPalindrome(12345)
+
+}
 
 
 
