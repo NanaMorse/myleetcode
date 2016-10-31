@@ -357,10 +357,36 @@
     return true;
   };
 
-  isPalindrome(12345)
-
 }
 
+{
+  /**
+   * 415. Add Strings
+   * @param {string} num1
+   * @param {string} num2
+   * @return {string}
+   * 98.04%
+   */
+  const addStrings = function(num1, num2) {
+    const num1Len = num1.length;
+    const num2Len = num2.length;
+    const maxLen = num1Len >= num2Len ? num1Len : num2Len;
+
+    let result = '';
+    let save = 0;
+    for (let i = 1; i <= maxLen; i++) {
+      const t = parseInt(i > num1Len ? 0 : num1[num1Len - i])
+        + parseInt(i > num2Len ? 0 : num2[num2Len - i])
+        + save;
+      save = t >= 10 ? 1 : 0;
+      result = '' + (t % 10) + result;
+    }
+
+    if (save === 1) result = '1' + result;
+
+    return result;
+  };
+}
 
 
 
