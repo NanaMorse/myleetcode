@@ -388,8 +388,38 @@
   };
 }
 
+{
 
+  /**
+   * 3. Longest Substring Without Repeating Characters
+   * @param {string} s
+   * @return {number}
+   * 50.00%
+   */
+  const lengthOfLongestSubstring = function(s) {
+    let start = 0;
+    let maxLen = 0;
+    let savePosMap = {};
 
+    for (let i = 0, len = s.length; i < len; i++) {
+      const subs = s[i];
+      const savedPos = savePosMap[subs];
+
+      if (savedPos != null) {
+        start = savedPos + 1;
+      }
+
+      savePosMap[subs] = i;
+
+      const newLen = i - start + 1;
+      maxLen = newLen > maxLen ? newLen : maxLen;
+    }
+
+    return maxLen;
+  };
+
+  lengthOfLongestSubstring('pwwkew')
+}
 
 
 
